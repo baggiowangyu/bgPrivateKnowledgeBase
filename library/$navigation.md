@@ -31,6 +31,9 @@
         - [第一部分：定位和安装](?file=003-Docker技术/012-Get Started/001-Get started with Docker/001-第一部分：定位和安装 "第一部分：定位和安装")
         - [第二部分：容器](?file=003-Docker技术/012-Get Started/001-Get started with Docker/002-第二部分：容器 "第二部分：容器")
         - [第三部分：服务](?file=003-Docker技术/012-Get Started/001-Get started with Docker/003-第三部分：服务 "第三部分：服务")
+- **离散知识点收集**
+    - [Docker的安装](?file=003-Docker技术/1001-离散知识点收集/001-Docker的安装 "Docker的安装")
+    - [镜像加速的几种手段](?file=003-Docker技术/1001-离散知识点收集/002-镜像加速的几种手段 "镜像加速的几种手段")
 - [Docker命令备忘](?file=003-Docker技术/999-Docker命令备忘 "Docker命令备忘")
 
 ##### 密码学技术
@@ -42,6 +45,7 @@
     - [Java_Spring_Boot开发Thrift通信框架](?file=005-RPC通信技术/10001-thrift开发技术/1001-Java_Spring_Boot开发Thrift通信框架 "Java_Spring_Boot开发Thrift通信框架")
 - **Dubbo开发技术**
 - **gRPC开发技术**
+- [QPID-Porton编译](?file=005-消息总线技术/01-QPID-Porton编译 "QPID-Porton编译")
 
 ##### ElasticSearch学习
 - [Docker部署ElasticSearch以及ElisticHD图形化管理界面](?file=006-ElasticSearch学习/001-Docker部署ElasticSearch以及ElisticHD图形化管理界面 "Docker部署ElasticSearch以及ElisticHD图形化管理界面")
@@ -51,7 +55,16 @@
 ##### 开发基础库
 - [POCO C++编译](?file=1001-开发基础库/001-POCO C++编译 "POCO C++编译")
 - [rabbitmq编译](?file=1001-开发基础库/002-rabbitmq编译 "rabbitmq编译")
-- [OpenCV编译的套路](?file=1001-开发基础库/004-OpenCV编译的套路 "OpenCV编译的套路")
+[OpenCV编译的套路](?file=1001-开发基础库/004-OpenCV编译的套路 "OpenCV编译的套路")
+##### 工作协调
+- [云南省厅](?file=2001-工作协调/001-云南省厅 "云南省厅")
+- [贵州省厅](?file=2001-工作协调/002-贵州省厅 "贵州省厅")
+- [海外版](?file=2001-工作协调/003-海外版 "海外版")
+
+##### 安卓开发技术
+
+##### 安卓逆向技术
+- [工欲善其事必先利其器](?file=3002-安卓逆向技术/01-工欲善其事必先利其器 "工欲善其事必先利其器")
 
 ##### 采集工作站
 - [采集工作站网关接口](?file=901-采集工作站/001-采集工作站网关接口 "采集工作站网关接口")
