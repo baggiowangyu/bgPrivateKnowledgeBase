@@ -21,6 +21,9 @@
     <ClInclude Include="bg28181Client.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="bg28181Def.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="bg28181Client.cpp">
