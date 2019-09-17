@@ -1,20 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="dd877b3a-3acb-4efd-83a9-4acc59a96a6f" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../../bg28181/bg28181Client/bg28181Client.sln" beforeDir="false" afterPath="$PROJECT_DIR$/../../bg28181/bg28181Client/bg28181Client.sln" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../bg28181/bg28181Client/bg28181Client/bg28181Client.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../../bg28181/bg28181Client/bg28181Client/bg28181Client.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../bg28181/bg28181Client/bg28181Client/bg28181Client.h" beforeDir="false" afterPath="$PROJECT_DIR$/../../bg28181/bg28181Client/bg28181Client/bg28181Client.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../bg28181/bg28181Client/bg28181Client/bg28181Client.vcxproj" beforeDir="false" afterPath="$PROJECT_DIR$/../../bg28181/bg28181Client/bg28181Client/bg28181Client.vcxproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../bg28181/bg28181Client/bg28181ClientDemo/bg28181ClientDemo.vcxproj" beforeDir="false" afterPath="$PROJECT_DIR$/../../bg28181/bg28181Client/bg28181ClientDemo/bg28181ClientDemo.vcxproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../bg28181/bg28181Client/bg28181ClientDemo/bg28181ClientDemoDlg.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../../bg28181/bg28181Client/bg28181ClientDemo/bg28181ClientDemoDlg.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../bg28181/bg28181Client/bg28181ClientDemo/bg28181ClientDemoDlg.h" beforeDir="false" afterPath="$PROJECT_DIR$/../../bg28181/bg28181Client/bg28181ClientDemo/bg28181ClientDemoDlg.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../bg28181/bg28181Client/bg28181ClientDemo/resource.h" beforeDir="false" afterPath="$PROJECT_DIR$/../../bg28181/bg28181Client/bg28181ClientDemo/resource.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../bg28181/external/exosip/platform/vsnet/eXosip.v12.suo" beforeDir="false" afterPath="$PROJECT_DIR$/../../bg28181/external/exosip/platform/vsnet/eXosip.v12.suo" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../bg28181/external/exosip/platform/vsnet/libcares.vcxproj" beforeDir="false" afterPath="$PROJECT_DIR$/../../bg28181/external/exosip/platform/vsnet/libcares.vcxproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../bg28181/external/exosip/src/eXconf.c" beforeDir="false" afterPath="$PROJECT_DIR$/../../bg28181/external/exosip/src/eXconf.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../bg28181/external/osip/include/osip2/osip.h" beforeDir="false" afterPath="$PROJECT_DIR$/../../bg28181/external/osip/include/osip2/osip.h" afterDir="false" />
-    </list>
+    <list default="true" id="dd877b3a-3acb-4efd-83a9-4acc59a96a6f" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,8 +13,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="390">
-              <caret line="23" column="13" lean-forward="true" selection-start-line="23" selection-start-column="13" selection-end-line="23" selection-end-column="13" />
+            <state relative-caret-position="460">
+              <caret line="23" column="13" selection-start-line="23" selection-start-column="13" selection-end-line="23" selection-end-column="13" />
               <folding>
                 <element signature="e#14#62#0" expanded="true" />
               </folding>
@@ -55,7 +42,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="1">
+  <component name="ProjectFrameBounds">
     <option name="x" value="41" />
     <option name="y" value="10" />
     <option name="width" value="1400" />
@@ -153,7 +140,7 @@
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Run" order="2" />
-      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.3995381" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.3995381" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -169,8 +156,8 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/main.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="23" column="13" lean-forward="true" selection-start-line="23" selection-start-column="13" selection-end-line="23" selection-end-column="13" />
+        <state relative-caret-position="460">
+          <caret line="23" column="13" selection-start-line="23" selection-start-column="13" selection-end-line="23" selection-end-column="13" />
           <folding>
             <element signature="e#14#62#0" expanded="true" />
           </folding>
