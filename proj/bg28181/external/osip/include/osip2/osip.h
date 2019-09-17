@@ -31,7 +31,7 @@
 #endif
 
 #ifdef _WIN32
-#include <winsock.h>
+//#include <winsock.h>
 #endif
 
 #include <osipparser2/osip_parser.h>

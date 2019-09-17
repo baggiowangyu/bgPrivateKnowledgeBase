@@ -26,7 +26,7 @@ public:
 	/**
 	 * ×¢²áµ½·şÎñÆ÷
 	 */
-	int Register(const char *server_ip, unsigned short server_port, unsigned char *server_gbcode, const char *username, const char *password, int expired);
+	int Register(const char *server_ip, unsigned short server_port, const char *server_gbcode, const char *username, const char *password, int expired);
 
 private:
 	void *context_;

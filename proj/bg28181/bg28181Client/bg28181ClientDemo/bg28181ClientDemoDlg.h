@@ -3,6 +3,9 @@
 //
 
 #pragma once
+#include "afxwin.h"
+
+#include "bg28181Client.h"
 
 
 // Cbg28181ClientDemoDlg ¶Ô»°¿ò
@@ -29,4 +32,21 @@ protected:
 	afx_msg void OnPaint();
 	afx_msg HCURSOR OnQueryDragIcon();
 	DECLARE_MESSAGE_MAP()
+
+public:
+	CEdit m_cLocalIp;
+	CEdit m_cLocalPort;
+	CEdit m_cLocalGBCode;
+	CEdit m_cServerIp;
+	CEdit m_cServerPort;
+	CEdit m_cServerGBCode;
+	CEdit m_cUsername;
+	CEdit m_cPassword;
+
+public:
+	bg28181Client _28181_client_;
+
+public:
+	afx_msg void OnBnClickedBtnRegist();
+	afx_msg void OnBnClickedBtnUnregist();
 };

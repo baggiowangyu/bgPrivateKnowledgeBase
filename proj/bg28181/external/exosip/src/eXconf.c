@@ -685,7 +685,8 @@ eXosip_init (struct eXosip_t *excontext)
   }
 #endif
 
-  excontext->user_agent = osip_strdup ("eXosip/" EXOSIP_VERSION);
+  //excontext->user_agent = osip_strdup ("eXosip/" EXOSIP_VERSION);
+  excontext->user_agent = osip_strdup("baggio/" EXOSIP_VERSION); 
   if (excontext->user_agent == NULL)
     return OSIP_NOMEM;
 
