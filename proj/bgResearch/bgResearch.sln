@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "bgResearch", "bgResearch\bgResearch.vcproj", "{F0AD85E1-05B2-4A50-9545-8515FAA9B5C9}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "bgCompareEfficient", "bgCompareEfficient\bgCompareEfficient.vcproj", "{F6BCC69B-DE2F-4030-AE8E-A2EEE80B8A28}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F0AD85E1-05B2-4A50-9545-8515FAA9B5C9}.Debug|Win32.ActiveCfg = Debug|Win32
+		{F0AD85E1-05B2-4A50-9545-8515FAA9B5C9}.Debug|Win32.Build.0 = Debug|Win32
+		{F0AD85E1-05B2-4A50-9545-8515FAA9B5C9}.Release|Win32.ActiveCfg = Release|Win32
+		{F0AD85E1-05B2-4A50-9545-8515FAA9B5C9}.Release|Win32.Build.0 = Release|Win32
+		{F6BCC69B-DE2F-4030-AE8E-A2EEE80B8A28}.Debug|Win32.ActiveCfg = Debug|Win32
+		{F6BCC69B-DE2F-4030-AE8E-A2EEE80B8A28}.Debug|Win32.Build.0 = Debug|Win32
+		{F6BCC69B-DE2F-4030-AE8E-A2EEE80B8A28}.Release|Win32.ActiveCfg = Release|Win32
+		{F6BCC69B-DE2F-4030-AE8E-A2EEE80B8A28}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

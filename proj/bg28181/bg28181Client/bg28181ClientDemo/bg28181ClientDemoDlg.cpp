@@ -111,7 +111,7 @@ BOOL Cbg28181ClientDemoDlg::OnInitDialog()
 	m_cLocalPort.SetWindowText(_T("5090"));
 	m_cLocalGBCode.SetWindowText(_T("44000000002320000001"));
 
-	m_cServerIp.SetWindowText(_T("192.168.231.1"));
+	m_cServerIp.SetWindowText(_T("192.168.231.131"));
 	m_cServerPort.SetWindowText(_T("5060"));
 	m_cServerGBCode.SetWindowText(_T("34020000002000000001"));
 	m_cUsername.SetWindowText(_T("admin"));

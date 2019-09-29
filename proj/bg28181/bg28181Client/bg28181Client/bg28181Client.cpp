@@ -71,7 +71,9 @@ int bg28181Client::Register(const char *server_ip, unsigned short server_port, c
 	char from[1024] = { 0 };
 	char contact[1024] = { 0 };
 	sprintf(from, "sip:%s@%s:%d", username, server_ip, server_port);
-	sprintf(proxy, "sip:%s:%d", server_ip, server_port);
+
+	// 这里用来生成REGISTER后面跟着的一段内容，这里按照28181的文档说明，格式应当为： sip:SIP服务器编码@目的域名或IP地址端口 
+	sprintf(proxy, "sip:%s@%s:%d", server_gbcode, server_ip, server_port);
 	sprintf(contact, "sip:%s@%s:%d", local_gbcode_.c_str(), local_ip_.c_str(), local_port_);
 
 	// 锁定

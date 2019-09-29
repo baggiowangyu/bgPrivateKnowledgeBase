@@ -1,0 +1,8 @@
+# 应用系统设置
+[setting]
+    logpath = "/tmp/log/gf-demos"
+    port = 6002
+
+# 数据库连接
+[database]
+    link = "mysql:root:video@tcp(127.0.0.1:3306)/goframedemo"
