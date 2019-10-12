@@ -1,8 +1,16 @@
 # 应用系统设置
 [setting]
-    logpath = "/tmp/log/gf-demos"
+    logpath = "/tmp/log/bgDeviceMgr"
     port = 6002
 
 # 数据库连接
+# 配置信息可参考：https://goframe.org/database/gdb/config
 [database]
-    link = "mysql:root:video@tcp(127.0.0.1:3306)/goframedemo"
+    [[database.bgLEAVM]]
+        link = "mysql:root:video@tcp(127.0.0.1:3306)/bgLEAVM"
+#        host = "127.0.0.1"
+#        port = "3306"
+#        user = "root"
+#        pass = "video"
+#        name = "bgLEAVM"
+#        type = "mysql"

@@ -1,0 +1,18 @@
+# 应用系统设置
+[setting]
+    logpath = "/tmp/log/bgFaceRecognition"
+    port = 6299
+
+# 数据库连接
+# 配置信息可参考：https://goframe.org/database/gdb/config
+[database]
+    [[database.default]]
+        host = "127.0.0.1"
+        port = "3306"
+        user = "root"
+        pass = "video"
+        name = "bglevam"
+        type = "mysql"
+
+[faceserver]
+    prefix = "http://127.0.0.1:6299/images"

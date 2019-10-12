@@ -3,11 +3,11 @@ package main
 import (
 	_ "./boot"
 	_ "./router"
-	"fmt"
 	"github.com/gogf/gf/frame/g"
 )
 
 func main() {
-	fmt.Println("bgDeviceMgr started ...")
+	//wait_seconds := 5 * time.Second
+	//time.Sleep(wait_seconds)
 	g.Server().Run()
 }
