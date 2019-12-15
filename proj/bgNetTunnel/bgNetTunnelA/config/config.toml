@@ -1,0 +1,44 @@
+[app]
+# 隧道服务
+    http_port = 10087
+    # 是否开启HTTPS(0-关闭 | 非0-开启，建议开启值设置为1)
+    enable_https = 0
+    log_path = "log"
+    # 日志等级：
+    # 448-产品日志A(WARN|ERRO|CRIT)
+    # 464-产品日志B(INFO|WARN|ERRO|CRIT)
+    # 504-研发日志(DEBU|INFO|NOTI|WARN|ERRO|CRIT)
+    log_level = 504
+    # 是否开启控制台输出日志(0-关闭 | 非0-开启，建议开启值设置为1)
+    enable_log_stdout = 1
+
+[tunnel]
+# 隧道服务配置，一般配置几个内容：
+    # 隧道类型：(TCP|UDP|LOCAL|FTP|SIP|...)
+    type = "TCP"
+    # 是否开启隧道信息加密(0-关闭 | 非0-开启，建议开启值设置为1)
+    enable_crypto = 0
+    # 隧道信息加密算法( AES-ECB-128 | AES-CBC-128 | AES-GCM-128 | SM4 )
+    crypto = "AES-ECB-128"
+    # 隧道信息加密密钥生成因子
+    crypto_key_factor = "bg"
+    # 隧道监听端口，等待隧道A端接入
+    tcp_port = 9001
+    udp_port = 9101
+    sip_port = 9201
+    # TUNNEL_B地址
+    b_address = "127.0.0.1:9001"
+    # LOCAL隧道配置
+    local_recv_dir = "E:/FTPRoot/B2A"
+    local_send_dir = "E:/FTPRoot/A2B"
+    # 隧道重连等待时间(毫秒)
+    tunnel_reconnect_interval = 1000
+
+[database]
+    [[database.default]]
+        host = "127.0.0.1"
+        port = "3306"
+        user = "root"
+        pass = "video"
+        name = "gxxgm"
+        type = "mysql"
