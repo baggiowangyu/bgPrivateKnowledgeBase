@@ -43,10 +43,13 @@ public:
 	CEdit m_cUsername;
 	CEdit m_cPassword;
 
+	CEdit m_cKeepAliveSendRate;
+
 public:
 	bg28181Client _28181_client_;
 
 public:
 	afx_msg void OnBnClickedBtnRegist();
 	afx_msg void OnBnClickedBtnUnregist();
+	
 };

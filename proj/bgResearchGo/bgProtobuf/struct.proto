@@ -1,0 +1,8 @@
+syntax = "proto3";
+ package pb;
+
+ message Person {
+     string rid = 1;
+     string name = 2;
+     string orgid = 3;
+ }

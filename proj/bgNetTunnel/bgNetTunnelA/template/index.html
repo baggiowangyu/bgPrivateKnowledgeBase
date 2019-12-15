@@ -1,0 +1,102 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>{{.title}}</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- 引入 Bootstrap -->
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+	<!-- HTML5 Shiv 和 Respond.js 用于让 IE8 支持 HTML5元素和媒体查询 -->
+	<!-- 注意： 如果通过 file://  引入 Respond.js 文件，则该文件无法起效果 -->
+	<!--[if lt IE 9]>
+		<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+		<script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+	<![endif]-->
+</head>
+
+<body>
+	<!-- jQuery (Bootstrap 的 JavaScript 插件需要引入 jQuery) -->
+	<script src="https://code.jquery.com/jquery.js"></script>
+	<script language="javascript">
+		function GetMappingObjectInfo(mapping_id) {
+			// 跳转到另外的页面，查询相关映射表的详细信息
+			window.open("/MappingObject/GetMappingObjectConnection?id=" + mapping_id)
+		}
+		
+		function StartMapping(mapping_id) {
+			// 启动映射
+		}
+		
+		function StopMapping(mapping_id) {
+			// 停止映射
+		}
+		
+		function RemoveMapping(mapping_id) {
+			// 移除映射
+		}
+		
+		function AddMapping() {
+			// 添加映射
+			window.location.href = "/MappingObject/AddMapping"
+		}
+	</script>
+	
+	<div class="container">
+		<!-- 导航栏 -->
+		<ul class="nav nav-pills">
+			<li class="active"><a href="#">映射表</a></li>
+<!--
+			<li><a href="#">SVN</a></li>
+			<li><a href="#">iOS</a></li>
+			<li><a href="#">VB.Net</a></li>
+			<li><a href="#">Java</a></li>
+			<li><a href="#">PHP</a></li>
+-->
+		</ul>
+
+		<!-- 映射表 -->
+		<table class="table table-hover">
+			<caption>{{.table_name}}</caption>
+			<thead>
+				<tr>
+					<!--映射ID-->
+					<th>{{.Mapping_id_title}}</th>
+					<!--映射端口-->
+					<th>{{.Mapping_port_title}}</th>
+					<!--目标IP-->
+					<th>{{.Source_ip_title}}</th>
+					<!--目标端口-->
+					<th>{{.Source_port_title}}</th>
+					<!--网络类型-->
+					<th>{{.Net_type_title}}</th>
+					<!--运行状态-->
+					<th>{{.Is_running_title}}</th>
+					<th>操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				{{range $index, $elem := .data}}
+				<tr>
+						<td>{{$elem.Mapping_id}}</td>
+						<td>{{$elem.Mapping_port}}</td>
+						<td>{{$elem.Source_ip}}</td>
+						<td>{{$elem.Source_port}}</td>
+						<td>{{$elem.Net_type}}</td>
+						<td>{{$elem.Is_running}}</td>
+						<td>
+							<button type="button" class="btn btn-primary" onclick="GetMappingObjectInfo({{$elem.Mapping_id}})">详细</button>
+							<button type="button" class="btn btn-primary" onclick="StartMapping({{$elem.Mapping_id}})">启用</button>
+							<button type="button" class="btn btn-primary" onclick="StopMapping({{$elem.Mapping_id}})">停用</button>
+							<button type="button" class="btn btn-primary" onclick="RemoveMapping({{$elem.Mapping_id}})">移除</button>
+						</td>
+				</tr>
+				{{end}}
+			</tbody>
+		</table>
+		
+		<button type="button" class="btn btn-primary" onclick="AddMapping()">增加映射</button>
+	</div>
+
+</body>
+</html>

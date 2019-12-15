@@ -1,7 +1,7 @@
 package router
 
 import (
-	"../app/api/orgmgr"
+	"bgOrgMgr/app/api/orgmgr"
 	"github.com/gogf/gf/frame/g"
 )
 

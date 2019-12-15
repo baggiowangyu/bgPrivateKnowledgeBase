@@ -1,8 +1,8 @@
 package main
 
 import (
-	_ "./boot"
-	_ "./router"
+	_ "bgOrgMgr/boot"
+	_ "bgOrgMgr/router"
 	"github.com/gogf/gf/frame/g"
 )
 

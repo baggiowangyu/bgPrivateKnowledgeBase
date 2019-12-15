@@ -1,7 +1,7 @@
 package orgmgr
 
 import (
-	"../../service"
+	"bgOrgMgr/app/service"
 	"github.com/gogf/gf/encoding/gjson"
 	"github.com/gogf/gf/frame/g"
 	"github.com/gogf/gf/net/ghttp"

@@ -1,0 +1,47 @@
+# 应用系统设置
+[setting]
+    logpath = "/tmp/log/bgFTPBridgeServer"
+    port = 8601
+
+# 数据库连接
+# 配置信息可参考：https://goframe.org/database/gdb/config
+[database]
+    [[database.default]]
+        host = "127.0.0.1"
+        port = "3306"
+        user = "root"
+        pass = "video"
+        name = "bglevam"
+        type = "mysql"
+
+# Redis数据库配置
+# Redis的配置格式为：host:port[,db,pass?maxIdle=x&maxActive=x&idleTimeout=x&maxConnLifetime=x]
+#
+# 各配置项说明如下：
+#
+# | 配置项名称        | 是否必须 | 默认值 | 说明
+# | host	        | 是	      | -	  | 地址
+# | port	        | 是	      | -	  | 端口
+# | db	            | 否	      | 0	  | 数据库
+# | pass	        | 否	      | -	  | 授权密码
+# | maxIdle	        | 否	      | 0	  | 允许限制的连接数(0表示不闲置)
+# | maxActive	    | 否	      | 0	  | 最大连接数量限制(0表示不限制)
+# | idleTimeout	    | 否	      | 60	  | 连接最大空闲时间(单位秒,不允许设置为0)
+# | maxConnLifetime	| 否	      | 60	  | 连接最长存活时间(单位秒,不允许设置为0)
+[redis]
+    default = "127.0.0.1:6379,0"
+    cache   = "127.0.0.1:6379,1,123456?idleTimeout=600"
+
+[orgsync]
+    # 同步等待间隔，单位：秒
+    duration = 60
+
+[bridge]
+    # FTP桥监听IP
+    host="127.0.0.1"
+    # FTP桥监听端口
+    port="8611"
+    # 数据发送目录
+    send_dir=""
+    # 数据接收目录
+    recv_dir=""

@@ -1,0 +1,39 @@
+syntax = "proto3";
+package tunnel_protocol;
+
+enum MainType {
+    MainType_None   = 0;
+    Business        = 1;
+    Exception       = 2;
+}
+
+enum SubType {
+    SubType_None    = 0;
+    Request         = 1;
+    Response        = 2;
+}
+
+enum NetType {
+    None    = 0;
+    TCP     = 1;
+    UDP     = 2;
+}
+
+message TunnelProtocol {
+    // MappingId,
+    int32       MappingID   = 1;
+    string      SrcCliAddr  = 2;
+    string      DstSrvAddr  = 3;
+    NetType     Net         = 4;
+    bytes       Data        = 5;
+}
+
+message TunnelSecProtocol {
+    string          Magic       = 1;
+    string          Version     = 2;
+    MainType        Main        = 3;
+    SubType         Sub         = 4;
+    bool            IsSec       = 5;
+    bytes           SecData     = 6;
+    TunnelProtocol  Data        = 7;
+}

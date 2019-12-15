@@ -1,0 +1,90 @@
+syntax = "proto3";
+package bgNetMessage;
+
+// 映射信息
+message MsgMappingInfo_v1 {
+    // 映射ID
+    int32  Mapping_id      = 1;
+
+    // 映射地址
+    string Mapping_ip      = 2;
+
+    // 映射端口
+    int32  Mapping_port    = 3;
+
+    // 目标地址
+    string Source_ip       = 4;
+
+    // 目标端口
+    int32  Source_port     = 5;
+
+    // 映射网络类型
+    string Net_type        = 6;
+
+    // (可选)映射是否运行
+    int32  Is_running      = 7;
+}
+
+// 映射表
+//message MsgMappingTable_v1 {
+//    MsgMappingInfo_v1  Mapping_info = 1;
+//}
+
+// 控制信息
+message MsgControlInfo_v1 {
+
+    enum mainType {
+        SyncMappingTable    = 0;
+    }
+
+    enum subType {
+        ADD         = 0;
+        REMOVE      = 1;
+        QUERY       = 2;
+        UPDATE      = 3;
+        UPDATEALL   = 4;
+    }
+
+    // 主控类型
+    mainType   MainType    = 1;
+
+    // 子控类型
+    subType    SubType     = 2;
+
+    // 控制命令
+    string      CtrlCommand = 3;
+}
+
+message NetMessage_v1 {
+    // 消息类型，控制类型-0，数据类型-1
+    int32 MsgType      = 1;
+
+    // 映射ID
+    int32 MappingId    = 2;
+
+    // 实际上就是客户端接入的ClientSocket(IP:PORT)
+    string ClientId    = 3;
+
+    // 消息实体，我们这里不动它
+    string MessageBody  = 4;
+}
+
+message NetMessage_v2 {
+
+    enum NetMessageType {
+        ControlType = 0;
+        DataType    = 1;
+    }
+
+    // 消息类型，控制类型-0，数据类型-1
+    NetMessageType MsgType = 1;
+
+    // 映射ID
+    int32 MappingId        = 2;
+
+    // 实际上就是客户端接入的ClientSocket(IP:PORT)
+    string ClientId        = 3;
+
+    // 消息实体，我们这里不动它
+    string MessageBody      = 4;
+}

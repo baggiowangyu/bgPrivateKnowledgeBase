@@ -1,0 +1,38 @@
+# 应用系统设置
+[setting]
+    logpath = "E:/tmp/log/bgFTPExchanger"
+    # 日志等级：
+    # 448-产品日志A(WARN|ERRO|CRIT)
+    # 464-产品日志B(INFO|WARN|ERRO|CRIT)
+    # 504-研发日志(DEBU|INFO|NOTI|WARN|ERRO|CRIT)
+    #
+    loglevel = 464
+    port = 10086
+
+# A网FTP配置信息
+[ftp-A-config]
+    address = "127.0.0.1:21"
+    port = "21"
+    login-name = "userA"
+    login-pass = "123456"
+    send-dir = "send"
+    recv-dir = "recv"
+
+# B网FTP配置信息
+[ftp-B-config]
+    address = "127.0.0.1:21"
+    port = "21"
+    login-name = "userB"
+    login-pass = "123456"
+    send-dir = "send"
+    recv-dir = "recv"
+
+# A网向B网摆渡配置信息
+[A2B]
+    # 间隔时间，单位毫秒
+    interval = 1000
+
+# B网向A网摆渡配置信息
+[B2A]
+    # 间隔时间，单位毫秒
+    interval = 1000

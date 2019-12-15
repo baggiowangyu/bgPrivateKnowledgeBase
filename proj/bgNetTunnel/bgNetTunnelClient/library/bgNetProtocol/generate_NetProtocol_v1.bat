@@ -1,0 +1,1 @@
+protoc --go_out=./bgNetMessage NetProtocol_v1.proto

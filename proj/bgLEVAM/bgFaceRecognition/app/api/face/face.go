@@ -27,7 +27,6 @@ func (c *Controller) PostCompareResult(r *ghttp.Request) {
 		err_result_json := gjson.New(err_result_map)
 		_ = r.Response.WriteJson(err_result_json)
 
-		// 牛逼的内存释放，Go的GC真是屌！
 		_ = err_result_map
 		_ = err_result_json
 		return
