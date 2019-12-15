@@ -9,8 +9,13 @@ import (
 
 // 管理初始化顺序.
 func init() {
+	// 初始化配置信息
 	initConfig()
+
+	// 初始化路由信息
 	initRouter()
+
+	// 初始化数据信息
 	started.Start()
 }
 
