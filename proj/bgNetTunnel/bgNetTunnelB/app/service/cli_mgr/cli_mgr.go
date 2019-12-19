@@ -93,7 +93,7 @@ func (c *ClientMgr) CreateClient(mapping_id int, src_client_address string, dst_
 	if net_type == "TCP" {
 		dst_conn, err := gtcp.NewConn(dst_server_address)
 		if err != nil {
-			glog.Errorf("Create client and connect to %s error. %s", dst_server_address, err.Error())
+			glog.Errorf("[ClientMgr::CreateClient] Create client and connect to %s error. %s", dst_server_address, err.Error())
 			return err
 		}
 
@@ -106,7 +106,7 @@ func (c *ClientMgr) CreateClient(mapping_id int, src_client_address string, dst_
 	} else if net_type == "UDP" {
 		dst_conn, err := gudp.NewConn(dst_server_address)
 		if err != nil {
-			glog.Errorf("Create client and connect to %s error. %s", dst_server_address, err.Error())
+			glog.Errorf("[ClientMgr::CreateClient] Create client and connect to %s error. %s", dst_server_address, err.Error())
 			return err
 		}
 
@@ -157,6 +157,7 @@ func (c *ClientMgr) AsynchronousRecvDataFromTunnel(data *tunnel_protocol.TunnelP
 		if !exists {
 			err = c.CreateClient(int(data.MappingID), data.SrcCliAddr, data.DstSrvAddr, data.Net.String())
 			if err != nil {
+				glog.Debugf("[ClientMgr::AsynchronousRecvDataFromTunnel] Create client failed.")
 				glog.Error(err)
 				return
 			}
@@ -171,6 +172,7 @@ func (c *ClientMgr) AsynchronousRecvDataFromTunnel(data *tunnel_protocol.TunnelP
 		if !exists {
 			err = c.CreateClient(int(data.MappingID), data.SrcCliAddr, data.DstSrvAddr, data.Net.String())
 			if err != nil {
+				glog.Debugf("[ClientMgr::AsynchronousRecvDataFromTunnel] Create client failed.")
 				glog.Error(err)
 				return
 			}
@@ -205,15 +207,9 @@ func (c *ClientMgr) TcpClientRecvThread(mapping_id int, src_client_address strin
 			c.DestroyClient(src_client_address, net_type)
 
 			// 组装数据
-			tunnel_data := tunnel_protocol.TunnelProtocol{
-				MappingID : int32(mapping_id),
-				SrcCliAddr : src_client_address,
-				DstSrvAddr : dst_server_address,
-				Net : tunnel_protocol.NetType_TCP,
-				Data : nil,
-			}
-
-			tunnel_sec_data, err := c.tunnel_proto.Marshal("1.0", tunnel_protocol.MainType_Exception, tunnel_protocol.SubType_Request, c.tunnel_enable_crypto, &tunnel_data)
+			tunnel_sec_data, err := c.tunnel_proto.BuildDataV1_0(nil, int32(mapping_id), src_client_address,
+				dst_server_address, tunnel_protocol.NetType_TCP, tunnel_protocol.MainType_Exception,
+				tunnel_protocol.SubType_Request, c.tunnel_enable_crypto)
 			if err == nil {
 				// 通知A端，断开客户端连接
 				err = c.client_observer_interface.PostDataToTunnel(tunnel_sec_data)
@@ -283,20 +279,23 @@ func (c *ClientMgr) UdpClientRecvThread(mapping_id int, src_client_address strin
 	for {
 		data_from_server, err := dst_conn.Recv(-1)
 
-		tunnel_data := tunnel_protocol.TunnelProtocol{
-			MappingID : int32(mapping_id),
-			SrcCliAddr : src_client_address,
-			DstSrvAddr : dst_server_address,
-			Net : tunnel_protocol.NetType_UDP,
-			Data : data_from_server,
-		}
+		//tunnel_data := tunnel_protocol.TunnelProtocol{
+		//	MappingID : int32(mapping_id),
+		//	SrcCliAddr : src_client_address,
+		//	DstSrvAddr : dst_server_address,
+		//	Net : tunnel_protocol.NetType_UDP,
+		//	Data : data_from_server,
+		//}
 
 		if err != nil {
 			// 连接出现问题，要么意外断开，要么某一方主动断开
 			// 此时我们需要调用管理器的结束客户端方法，结束掉当前客户端
 			c.DestroyClient(src_client_address, net_type)
 
-			tunnel_sec_data, err := c.tunnel_proto.Marshal("1.0", tunnel_protocol.MainType_Exception, tunnel_protocol.SubType_Request, c.tunnel_enable_crypto, &tunnel_data)
+			tunnel_sec_data, err := c.tunnel_proto.BuildDataV1_0(data_from_server, int32(mapping_id), src_client_address,
+				dst_server_address, tunnel_protocol.NetType_UDP, tunnel_protocol.MainType_Exception,
+				tunnel_protocol.SubType_Request, c.tunnel_enable_crypto)
+			//tunnel_sec_data, err := c.tunnel_proto.Marshal("1.0", tunnel_protocol.MainType_Exception, tunnel_protocol.SubType_Request, c.tunnel_enable_crypto, &tunnel_data)
 			if err == nil {
 				// 通知A端，断开客户端连接
 				err = c.client_observer_interface.PostDataToTunnel(tunnel_sec_data)
@@ -309,7 +308,10 @@ func (c *ClientMgr) UdpClientRecvThread(mapping_id int, src_client_address strin
 			return
 		}
 
-		tunnel_sec_data, err := c.tunnel_proto.Marshal("1.0", tunnel_protocol.MainType_Business, tunnel_protocol.SubType_Response, c.tunnel_enable_crypto, &tunnel_data)
+		tunnel_sec_data, err := c.tunnel_proto.BuildDataV1_0(data_from_server, int32(mapping_id), src_client_address,
+			dst_server_address, tunnel_protocol.NetType_UDP, tunnel_protocol.MainType_Business,
+			tunnel_protocol.SubType_Response, c.tunnel_enable_crypto)
+		//tunnel_sec_data, err := c.tunnel_proto.Marshal("1.0", tunnel_protocol.MainType_Business, tunnel_protocol.SubType_Response, c.tunnel_enable_crypto, &tunnel_data)
 		if err != nil {
 			glog.Error(err)
 			continue

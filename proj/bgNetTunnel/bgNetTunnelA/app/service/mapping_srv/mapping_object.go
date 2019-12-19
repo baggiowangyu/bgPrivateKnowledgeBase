@@ -97,10 +97,10 @@ func (m *MappingObject) SendDataToClient(data *tunnel_protocol.TunnelProtocol) e
 			go func() {
 				err = conn.Send(data.Data)
 				if err != nil {
-					glog.Debug("Send data to client failed.")
+					glog.Debug("[MappingObject::SendDataToClient] Send data to client failed.")
 					glog.Error(err)
 				} else {
-					glog.Debug("Send data to client succeed.")
+					glog.Debug("[MappingObject::SendDataToClient] Send data to client succeed.")
 				}
 			}()
 
@@ -111,10 +111,10 @@ func (m *MappingObject) SendDataToClient(data *tunnel_protocol.TunnelProtocol) e
 			go func() {
 				err = conn.Send(data.Data)
 				if err != nil {
-					glog.Debug("Send data to client failed.")
+					glog.Debug("[MappingObject::SendDataToClient] Send data to client failed.")
 					glog.Error(err)
 				} else {
-					glog.Debug("Send data to client succeed.")
+					glog.Debug("[MappingObject::SendDataToClient] Send data to client succeed.")
 				}
 			}()
 		}
@@ -125,7 +125,7 @@ func (m *MappingObject) SendDataToClient(data *tunnel_protocol.TunnelProtocol) e
 
 func (m *MappingObject) TcpConnectHandler(client_conn *gtcp.Conn) {
 	client_address := client_conn.RemoteAddr().String()
-	glog.Infof("Client connected. Address : %s", client_address)
+	glog.Infof("[MappingObject::TcpConnectHandler] Client connected. Address : %s", client_address)
 
 	// 通知B端，有客户端接入，然后加入客户端表
 	m.Tcp_client_table[client_address] = client_conn
@@ -137,31 +137,32 @@ func (m *MappingObject) TcpConnectHandler(client_conn *gtcp.Conn) {
 		data, err := client_conn.Recv(-1)
 
 		if err != nil {
-			glog.Debugf("Port %d recv data from %s failed.", m.Info.Mapping_port, client_address)
+			glog.Debugf("[MappingObject::TcpConnectHandler] Port %d recv data from %s failed.", m.Info.Mapping_port, client_address)
 
 			// 出现错误，通知B端，客户端已断开
 			mashal_data, err := m.TunnelProtocolObject.BuildDataV1_0(nil, int32(mapping_id), client_address,
 				dst_server_address, tunnel_protocol.NetType_TCP, tunnel_protocol.MainType_Exception,
 				tunnel_protocol.SubType_Request, m.Enable_crypto)
 			if err != nil {
-				glog.Debugf("Marshal TunnelProtocolObject failed.")
+				glog.Debugf("[MappingObject::TcpConnectHandler] Build exception Marshaled TunnelProtocolObject failed.")
 				glog.Error(err)
+				break
 			}
 
 			// 向B端发送协议数据
 			err = m.Tunnel_client_interface.PostDataToTunnel(mashal_data)
 			if err != nil {
+				glog.Debugf("[MappingObject::TcpConnectHandler] Post exception data to tunnel-B failed")
 				glog.Error(err)
 			}
 
-			glog.Error(err)
 			break
 		} else {
 			data_len := len(data)
 			group_len := 1024 * 1024 * 4
 			send_count := data_len / group_len
 			remain_data_len := data_len % group_len
-			glog.Debugf("Port %d recv data from %s. length : %d", m.Info.Mapping_port, client_address, data_len)
+			glog.Debugf("[MappingObject::TcpConnectHandler] Port %d recv data from %s. length : %d", m.Info.Mapping_port, client_address, data_len)
 
 			for index := 0; index < send_count; index++ {
 				start_pos := index * group_len
@@ -173,6 +174,7 @@ func (m *MappingObject) TcpConnectHandler(client_conn *gtcp.Conn) {
 					dst_server_address, tunnel_protocol.NetType_TCP, tunnel_protocol.MainType_Business,
 					tunnel_protocol.SubType_Response, m.Enable_crypto)
 				if err != nil {
+					glog.Debugf("[MappingObject::TcpConnectHandler] Build business Marshaled TunnelProtocolObject failed.")
 					glog.Error(err)
 					continue
 				}
@@ -180,6 +182,7 @@ func (m *MappingObject) TcpConnectHandler(client_conn *gtcp.Conn) {
 				// 通过接口扔给隧道
 				err = m.Tunnel_client_interface.PostDataToTunnel(tunnel_sec_data)
 				if err != nil {
+					glog.Debugf("[MappingObject::TcpConnectHandler] Post business data to tunnel-B failed")
 					glog.Error(err)
 					continue
 				}
@@ -195,6 +198,7 @@ func (m *MappingObject) TcpConnectHandler(client_conn *gtcp.Conn) {
 					dst_server_address, tunnel_protocol.NetType_TCP, tunnel_protocol.MainType_Business,
 					tunnel_protocol.SubType_Response, m.Enable_crypto)
 				if err != nil {
+					glog.Debugf("[MappingObject::TcpConnectHandler] Build last business Marshaled TunnelProtocolObject failed.")
 					glog.Error(err)
 					continue
 				}
@@ -202,6 +206,7 @@ func (m *MappingObject) TcpConnectHandler(client_conn *gtcp.Conn) {
 				// 通过接口扔给隧道
 				err = m.Tunnel_client_interface.PostDataToTunnel(tunnel_sec_data)
 				if err != nil {
+					glog.Debugf("[MappingObject::TcpConnectHandler] Post last business data to tunnel-B failed")
 					glog.Error(err)
 					continue
 				}
@@ -223,30 +228,34 @@ func (m *MappingObject) UdpConnectHandler(client_conn *gudp.Conn) {
 
 	for {
 		// 由于在后面使用SendPkg和RecvPkg有包大小限制，似乎是65535，我们这里限制一下每次接受的缓冲区大小为40K，后面可以适当调整
-		data, err := client_conn.Recv(40960)
+		data, err := client_conn.Recv(-1)
 		if err != nil {
+			glog.Debugf("[MappingObject::UdpConnectHandler] Port %d recv data from %s failed.", m.Info.Mapping_port, client_address)
+
 			// 出现错误，通知B端，客户端已断开
 			mashal_data, err := m.TunnelProtocolObject.BuildDataV1_0(nil, int32(mapping_id), client_address,
 				dst_server_address, tunnel_protocol.NetType_TCP, tunnel_protocol.MainType_Exception,
 				tunnel_protocol.SubType_Request, m.Enable_crypto)
 			if err != nil {
+				glog.Debugf("[MappingObject::UdpConnectHandler] Build exception Marshaled TunnelProtocolObject failed.")
 				glog.Error(err)
+				break
 			}
 
 			// 向B端发送协议数据
 			err = m.Tunnel_client_interface.PostDataToTunnel(mashal_data)
 			if err != nil {
+				glog.Debugf("[MappingObject::UdpConnectHandler] Post exception data to tunnel-B failed")
 				glog.Error(err)
 			}
 
-			glog.Error(err)
 			break
 		} else {
 			data_len := len(data)
 			group_len := 1024 * 1024 * 4
 			send_count := data_len / group_len
 			remain_data_len := data_len % group_len
-			glog.Debugf("Port %d recv data from %s. length : %d", m.Info.Mapping_port, client_address, data_len)
+			glog.Debugf("[MappingObject::UdpConnectHandler] Port %d recv data from %s. length : %d", m.Info.Mapping_port, client_address, data_len)
 
 			for index := 0; index < send_count; index++ {
 				start_pos := index * group_len
@@ -257,6 +266,7 @@ func (m *MappingObject) UdpConnectHandler(client_conn *gudp.Conn) {
 					dst_server_address, tunnel_protocol.NetType_TCP, tunnel_protocol.MainType_Business,
 					tunnel_protocol.SubType_Response, m.Enable_crypto)
 				if err != nil {
+					glog.Debugf("[MappingObject::UdpConnectHandler] Build business Marshaled TunnelProtocolObject failed.")
 					glog.Error(err)
 					continue
 				}
@@ -264,6 +274,7 @@ func (m *MappingObject) UdpConnectHandler(client_conn *gudp.Conn) {
 				// 向B端发送协议数据
 				err = m.Tunnel_client_interface.PostDataToTunnel(tunnel_sec_data)
 				if err != nil {
+					glog.Debugf("[MappingObject::UdpConnectHandler] Post business data to tunnel-B failed")
 					glog.Error(err)
 				}
 			}
@@ -278,6 +289,7 @@ func (m *MappingObject) UdpConnectHandler(client_conn *gudp.Conn) {
 					dst_server_address, tunnel_protocol.NetType_TCP, tunnel_protocol.MainType_Business,
 					tunnel_protocol.SubType_Response, m.Enable_crypto)
 				if err != nil {
+					glog.Debugf("[MappingObject::UdpConnectHandler] Build last business Marshaled TunnelProtocolObject failed.")
 					glog.Error(err)
 					continue
 				}
@@ -285,6 +297,7 @@ func (m *MappingObject) UdpConnectHandler(client_conn *gudp.Conn) {
 				// 通过接口扔给隧道
 				err = m.Tunnel_client_interface.PostDataToTunnel(tunnel_sec_data)
 				if err != nil {
+					glog.Debugf("[MappingObject::UdpConnectHandler] Post last business data to tunnel-B failed")
 					glog.Error(err)
 					continue
 				}

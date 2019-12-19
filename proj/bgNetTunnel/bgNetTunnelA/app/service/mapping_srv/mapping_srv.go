@@ -14,6 +14,8 @@ import (
 	"bgNetTunnelA/app/service/tunnel_cli"
 	"bgNetTunnelA/tunnel_protocol"
 	"crypto/md5"
+	"github.com/gogf/gf/database/gdb"
+	"github.com/gogf/gf/encoding/gjson"
 	"github.com/gogf/gf/frame/g"
 	"github.com/gogf/gf/os/glog"
 	"github.com/mitchellh/mapstructure"
@@ -23,6 +25,7 @@ type MappingService struct {
 	TunnelProtocolObject tunnel_protocol.TunnelProto
 	TunnelA tunnel_cli.TunnelClient
 	MappingTable map[int]*MappingObject
+	Enable_crypto bool
 }
 
 // 全局变量，映射服务
@@ -35,7 +38,7 @@ func (m *MappingService) Initialize() error {
 
 	//////////////////////////////////////////////////////////////////////////////////
 	// 首先初始化隧道协议对象
-	enable_crypto := g.Config().GetBool("tunnel.enable_crypto")
+	m.Enable_crypto = g.Config().GetBool("tunnel.enable_crypto")
 	algorithm := g.Config().GetString("tunnel.crypto")
 	factor := g.Config().GetString("tunnel.crypto_key_factor")
 
@@ -59,12 +62,12 @@ func (m *MappingService) Initialize() error {
 
 	//////////////////////////////////////////////////////////////////////////////////
 	// 然后初始化隧道A端
-	err = m.TunnelA.Initialize(m)
+	err = m.TunnelA.Initialize(m, key)
 	if err != nil {
-		glog.Debug("Initialize tunnel A object failed.")
+		glog.Debug("[MappingService::Initialize] Initialize tunnel A object failed.")
 		return err
 	} else {
-		glog.Debug("Initialize tunnel A object succeed.")
+		glog.Debug("[MappingService::Initialize] Initialize tunnel A object succeed.")
 	}
 
 	//////////////////////////////////////////////////////////////////////////////////
@@ -72,11 +75,11 @@ func (m *MappingService) Initialize() error {
 	m.MappingTable = make(map[int]*MappingObject, 16)
 	result, err := g.DB("default").Table("bg_mapping_table").Select()
 	if err != nil {
-		glog.Debug("Read mapping info from database failed.")
+		glog.Debug("[MappingService::Initialize] Read mapping info from database failed.")
 		glog.Error(err)
 		return err
 	} else {
-		glog.Debug("Read mapping info from database succeed.")
+		glog.Debug("[MappingService::Initialize] Read mapping info from database succeed.")
 	}
 
 	for _, record := range result {
@@ -85,23 +88,22 @@ func (m *MappingService) Initialize() error {
 		mapping_base_info := new(MappingBaseInfo)
 		err = mapstructure.Decode(record_map, mapping_base_info)
 		if err != nil {
-			glog.Debug("database map convert to struct failed.")
+			glog.Debug("[MappingService::Initialize] database map convert to struct failed.")
 			glog.Error(err)
 		} else {
-			glog.Debug("database map convert to struct succeed.")
+			glog.Debug("[MappingService::Initialize] database map convert to struct succeed.")
 		}
 
 		// 初始化映射对象后，将映射对象加入映射表
 		mapping_object := new(MappingObject)
-		err = mapping_object.Initialize(mapping_base_info, m, &m.TunnelProtocolObject, enable_crypto)
+		err = mapping_object.Initialize(mapping_base_info, m, &m.TunnelProtocolObject, m.Enable_crypto)
 		if err != nil {
-			glog.Debug("Initialize mapping object failed.")
+			glog.Debug("[MappingService::Initialize] Initialize mapping object failed.")
 			glog.Error(err)
 		} else {
-			glog.Debug("Initialize mapping object succeed.")
+			glog.Debug("[MappingService::Initialize] Initialize mapping object succeed.")
 		}
-		
-		//source_address := fmt.Sprintf("%s:%d", mapping_object.Info.Source_ip, mapping_object.Info.Mapping_port)
+
 		m.MappingTable[mapping_object.Info.Mapping_id] = mapping_object
 
 		// 如果数据库标记为运行状态，则启动映射对象
@@ -119,6 +121,11 @@ MappingService::PostDataToTunnel()
  */
 func (m *MappingService) PostDataToTunnel(data []byte) error {
 	err := m.TunnelA.PostDataToTunnel(data)
+	if err != nil {
+		glog.Debugf("[MappingService::PeekDataFromTunnel] Post data to tunnel-B failed.")
+		glog.Error(err)
+	}
+
 	return err
 }
 
@@ -132,7 +139,7 @@ func (m *MappingService) PeekDataFromTunnel(data []byte) error {
 	// 这里反序列化，取出对应的映射key(即Address)，将消息分发到对应的映射管理器中
 	tunnel_sec_protocol, err := m.TunnelProtocolObject.Unmarshal(data)
 	if err != nil {
-		glog.Debug("Unmarshal tunnel data failed.")
+		glog.Debug("[MappingService::PeekDataFromTunnel] Unmarshal tunnel data failed.")
 		glog.Error(err)
 		return err
 	}
@@ -142,13 +149,13 @@ func (m *MappingService) PeekDataFromTunnel(data []byte) error {
 		mapping_id := int(tunnel_sec_protocol.Data.MappingID)
 		mapping_object, exists := m.MappingTable[mapping_id]
 		if exists {
-			glog.Debugf("Send bussiness data to client :\n%s", tunnel_sec_protocol.String())
+			glog.Debugf("[MappingService::PeekDataFromTunnel] Send bussiness data to client :\n%s", tunnel_sec_protocol.String())
 			err = mapping_object.SendDataToClient(tunnel_sec_protocol.Data)
 		} else {
 			glog.Warningf("MappingService::PeekDataFromTunnel() not found mapping object with key : %d", mapping_id)
 		}
 	} else if tunnel_sec_protocol.Main == tunnel_protocol.MainType_Exception {
-		glog.Debugf("Send exception data to client :\n%s", tunnel_sec_protocol.String())
+		glog.Debugf("[MappingService::PeekDataFromTunnel] Send exception data to client :\n%s", tunnel_sec_protocol.String())
 		//mapping_object, exists := m.MappingTable[tunnel_sec_protocol.Data.DstSrvAddr]
 		//if exists {
 			// 这里应当有一个接口处理异常情况，
@@ -164,3 +171,55 @@ func (m *MappingService) PeekDataFromTunnel(data []byte) error {
 // 管理类接口
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+func (m *MappingService) AddMappingInfoHandle(mapping_info *gjson.Json) error {
+	mapping_port := mapping_info.GetInt("mapping_port")
+	source_ip := mapping_info.GetString("source_ip")
+	source_port := mapping_info.GetInt("source_port")
+	net_type := mapping_info.GetString("net_type")
+
+	// 首先添加到数据库
+	result, err := g.DB("default").Insert("bg_mapping_table", gdb.Map{
+		"Mapping_port" : mapping_port,
+		"Source_ip" : source_ip,
+		"Source_port" : source_port,
+		"Net_type" : net_type,
+		"Is_running" : 1,
+	})
+
+	if err != nil {
+		glog.Error(err)
+		return err
+	}
+
+	id, _ := result.LastInsertId()
+	row, _ := result.LastInsertId()
+	glog.Debugf("[MappingService::AddMappingInfoHandle] Insert mapping info into database succeed. Id : %d, Row : %d",
+		id, row)
+
+	// 然后创建映射对象、添加到内存映射表
+	mapping_base_info := new(MappingBaseInfo)
+	mapping_base_info.Mapping_id = int(id)
+	mapping_base_info.Mapping_port = mapping_port
+	mapping_base_info.Source_ip = source_ip
+	mapping_base_info.Source_port = source_port
+	mapping_base_info.Net_type = net_type
+	mapping_base_info.Is_running = 1
+	mapping_object := new(MappingObject)
+	err = mapping_object.Initialize(mapping_base_info, m, &m.TunnelProtocolObject, m.Enable_crypto)
+	if err != nil {
+		glog.Debug("[MappingService::AddMappingInfoHandle] Initialize mapping object failed.")
+		glog.Error(err)
+	} else {
+		glog.Debug("[MappingService::AddMappingInfoHandle] Initialize mapping object succeed.")
+	}
+
+	m.MappingTable[mapping_object.Info.Mapping_id] = mapping_object
+
+	// 如果标记为运行状态，则启动映射对象
+	if mapping_object.Info.Is_running == 1 {
+		mapping_object.Start()
+	}
+
+	return nil
+}

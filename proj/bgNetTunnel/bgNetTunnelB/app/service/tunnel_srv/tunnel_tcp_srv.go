@@ -50,11 +50,11 @@ func (t *TunnelTcpServer) Start() {
 
 func (t *TunnelTcpServer) ConnHandler(client_conn *gtcp.Conn) {
 	// 隧道客户端接入了
-	glog.Debugf("TunnelTcpServer::ConnHandler() %s connect to tunnel server.", client_conn.RemoteAddr().String())
+	glog.Debugf("[TunnelTcpServer::ConnHandler] %s connect to tunnel server.", client_conn.RemoteAddr().String())
 	if t.tunnel_A_conn == nil {
 		t.tunnel_A_conn = client_conn
 	} else {
-		glog.Error("Already has a tunnel a connection...")
+		glog.Error("[TunnelTcpServer::ConnHandler] Already has a tunnel a connection...")
 		_ = client_conn.Close()
 		return
 	}
@@ -70,11 +70,11 @@ func (t *TunnelTcpServer) ConnHandler(client_conn *gtcp.Conn) {
 		if err != nil {
 			// 发生异常了，那么我们清空连接信息，等待下一个隧道A端连过来
 			t.tunnel_A_conn = nil
-			glog.Debug("Recv tunnel data failed.")
+			glog.Debug("[TunnelTcpServer::ConnHandler] Recv tunnel data failed.")
 			glog.Error(err)
 			break
 		} else {
-			glog.Debugf("Recv tunnel data :\n%s", data)
+			glog.Debugf("[TunnelTcpServer::ConnHandler] Recv tunnel data :\n%s", data)
 		}
 
 		// 接收到数据，首先反序列化，得到整包，判断是业务数据还是异常数据，是业务数据则扔给客户端管理器

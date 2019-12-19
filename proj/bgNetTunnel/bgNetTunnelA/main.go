@@ -12,7 +12,7 @@ func main() {
 	// 创建一个映射服务，并初始化
 	err := mapping_srv.Mapping_service_instance.Initialize()
 	if err != nil {
-		glog.Debug("Initialize mapping service instance failed.")
+		glog.Debug("[main] Initialize mapping service instance failed.")
 		glog.Error(err)
 		return
 	}

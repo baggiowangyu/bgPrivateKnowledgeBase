@@ -38,6 +38,7 @@ func (t *TunnelLocalClient) PostDataToTunnel(data []byte) error {
 	total_file_name := t.send_dir + "/" + strconv.FormatInt(time.Now().UnixNano(), 10) + "_" + tsgutils.GUID() + ".bgdat"
 	err := ioutil.WriteFile(total_file_name, data, os.ModeExclusive)
 	if err != nil {
+		glog.Debugf("[TunnelLocalClient::PostDataToTunnel] Write file %s failed.", total_file_name)
 		glog.Error(err)
 	}
 
@@ -63,12 +64,14 @@ func (t *TunnelLocalClient) RecvThread() {
 			full_path := t.recv_dir + "/" + file_info.Name()
 			data, err := ioutil.ReadFile(full_path)
 			if err != nil {
+				glog.Debugf("[TunnelLocalClient::PostDataToTunnel] Read file %s failed.", full_path)
 				glog.Error(err)
 				continue
 			}
 
 			err = os.RemoveAll(full_path)
 			if err != nil {
+				glog.Debugf("[TunnelLocalClient::PostDataToTunnel] Remove file %s failed.", full_path)
 				glog.Error(err)
 			}
 

@@ -28,7 +28,7 @@ type TunnelClient struct {
 	client_interface TunnelClientInterface
 }
 
-func (t *TunnelClient) Initialize(inter TunnelClientObserverInterface) error {
+func (t *TunnelClient) Initialize(inter TunnelClientObserverInterface, key []byte) error {
 	var err error
 
 	// 根据配置文件生成对应的通道对象
@@ -39,27 +39,39 @@ func (t *TunnelClient) Initialize(inter TunnelClientObserverInterface) error {
 		tunnel_tcp_client := new(TunnelTcpClient)
 		err = tunnel_tcp_client.Initialize(tunnel_b_address, inter)
 		if err != nil {
+			glog.Debugf("[TunnelClient::Initialize] Initialize tcp client failed.")
 			glog.Error(err)
 			return err
 		}
 
 		t.client_interface = tunnel_tcp_client
-		glog.Debug("TunnelClient::Initialize() Create a TCP tunnel client...")
+		glog.Debug("[TunnelClient::Initialize] Create a TCP tunnel client...")
 
 	} else if tunnel_type == "UDP" {
 		//
+		tunnel_b_address := g.Config().GetString("tunnel.b_address")
+		tunnel_udp_client := new(TunnelUdpClient)
+		err = tunnel_udp_client.Initialize(tunnel_b_address, inter, key)
+		if err != nil {
+			glog.Error(err)
+			return err
+		}
+
+		t.client_interface = tunnel_udp_client
+		glog.Debug("[TunnelClient::Initialize] Create a TCP tunnel client...")
+
 	} else if tunnel_type == "LOCAL" {
 		sdir := g.Config().GetString("tunnel.local_send_dir")
 		rdir := g.Config().GetString("tunnel.local_recv_dir")
 		tunnel_local_client := new(TunnelLocalClient)
-		tunnel_local_client.Initialize(rdir, sdir, inter)
+		err = tunnel_local_client.Initialize(rdir, sdir, inter)
 		if err != nil {
 			glog.Error(err)
 			return err
 		}
 
 		t.client_interface = tunnel_local_client
-		glog.Debug("TunnelClient::Initialize() Create a LOCAL tunnel client...")
+		glog.Debug("[TunnelClient::Initialize] Create a LOCAL tunnel client...")
 
 	} else if tunnel_type == "FTP" {
 		//

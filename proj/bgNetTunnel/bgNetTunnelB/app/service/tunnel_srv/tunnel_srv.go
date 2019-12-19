@@ -50,14 +50,17 @@ func (t *TunnelServer) Initialize() error {
 	if tunnel_type == "TCP" {
 		tunnel_tcp_server := new(TunnelTcpServer)
 		tunnel_tcp_server.Initialize(&t.TunnelProtocolObject, &t.Client_mgr)
-		glog.Debug("TunnelServer::Initialize() Create a TCP tunnel server...")
+		glog.Debug("[TunnelServer::Initialize] Create a TCP tunnel server...")
 
 	} else if tunnel_type == "UDP" {
+		tunnel_udp_server := new(TunnelUdpServer)
+		tunnel_udp_server.Initialize(&t.TunnelProtocolObject, &t.Client_mgr, key)
+		glog.Debug("[TunnelServer::Initialize] Create a UDP tunnel server...")
 
 	} else if tunnel_type == "LOCAL" {
 		tunnel_local_server := new(TunnelLocalServer)
 		tunnel_local_server.Initialize(&t.TunnelProtocolObject, &t.Client_mgr)
-		glog.Debug("TunnelServer::Initialize() Create a Local tunnel server...")
+		glog.Debug("[TunnelServer::Initialize] Create a Local tunnel server...")
 
 	} else if tunnel_type == "FTP" {
 		//

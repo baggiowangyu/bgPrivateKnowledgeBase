@@ -59,10 +59,10 @@ func (t *TunnelTcpClient) PostDataToTunnel(data []byte) error {
 	// 隧道内的数据尽量不要粘包，我们整包发
 	err := t.conn.SendPkg(data, opt)
 	if err != nil {
-		glog.Debugf("SendData failed.")
+		glog.Debugf("[TunnelTcpClient::PostDataToTunnel] SendData failed.")
 		glog.Error(err)
 	} else {
-		glog.Debugf("SendData succeed:\n%s", data)
+		glog.Debugf("[TunnelTcpClient::PostDataToTunnel] SendData succeed:\n%s", data)
 	}
 
 	return err
@@ -82,11 +82,11 @@ func (t *TunnelTcpClient) RecvThread() {
 		data, err := t.conn.RecvPkg(opt)
 		if err != nil {
 			// 当这里出现异常的时候，我们应当进行无限次重连，确保通道能正常恢复
-			glog.Debugf("Recv tunnel data failed")
+			glog.Debugf("[TunnelTcpClient::PostDataToTunnel] Recv tunnel data failed")
 			glog.Error(err)
 			break
 		} else {
-			glog.Debugf("Recv tunnel data :\n%s", data)
+			glog.Debugf("[TunnelTcpClient::PostDataToTunnel] Recv tunnel data :\n%s", data)
 		}
 
 		// 这里应该往上层观察者扔了

@@ -12,6 +12,7 @@ func main() {
 	//tunnel_server := new(tunnel_srv.TunnelServer)
 	err := tunnel_srv.Tunnel_server.Initialize()
 	if err != nil {
+		glog.Debug("[main] Initialize tunnel server failed.")
 		glog.Error(err)
 		return
 	}

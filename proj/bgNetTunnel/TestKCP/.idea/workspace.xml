@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="16d17204-4b2b-4c3a-88a0-4e36dd67fb75" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/TestKCP.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/1.exe" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/nosqlbooster4mongo-5.1.5.exe" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../bgNetTunnelA/app/service/tunnel_cli/tunnel_udp_cli.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../bgNetTunnelB/app/service/tunnel_srv/tunnel_udp_srv.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bgNetTunnelA/app/service/mapping_srv/mapping_object.go" beforeDir="false" afterPath="$PROJECT_DIR$/../bgNetTunnelA/app/service/mapping_srv/mapping_object.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bgNetTunnelA/app/service/mapping_srv/mapping_srv.go" beforeDir="false" afterPath="$PROJECT_DIR$/../bgNetTunnelA/app/service/mapping_srv/mapping_srv.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bgNetTunnelA/app/service/tunnel_cli/tunnel_cli.go" beforeDir="false" afterPath="$PROJECT_DIR$/../bgNetTunnelA/app/service/tunnel_cli/tunnel_cli.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bgNetTunnelA/app/service/tunnel_cli/tunnel_tcp_cli.go" beforeDir="false" afterPath="$PROJECT_DIR$/../bgNetTunnelA/app/service/tunnel_cli/tunnel_tcp_cli.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bgNetTunnelA/bgNetTunnelA_linux_386" beforeDir="false" afterPath="$PROJECT_DIR$/../bgNetTunnelA/bgNetTunnelA_linux_386" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bgNetTunnelA/bgNetTunnelA_linux_amd64" beforeDir="false" afterPath="$PROJECT_DIR$/../bgNetTunnelA/bgNetTunnelA_linux_amd64" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bgNetTunnelA/bgNetTunnelA_windows_386.exe" beforeDir="false" afterPath="$PROJECT_DIR$/../bgNetTunnelA/bgNetTunnelA_windows_386.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bgNetTunnelA/bgNetTunnelA_windows_amd64.exe" beforeDir="false" afterPath="$PROJECT_DIR$/../bgNetTunnelA/bgNetTunnelA_windows_amd64.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bgNetTunnelA/build_all.bat" beforeDir="false" afterPath="$PROJECT_DIR$/../bgNetTunnelA/build_all.bat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bgNetTunnelA/config/config.toml" beforeDir="false" afterPath="$PROJECT_DIR$/../bgNetTunnelA/config/config.toml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bgNetTunnelA/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/../bgNetTunnelA/go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bgNetTunnelA/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/../bgNetTunnelA/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bgNetTunnelB/app/service/tunnel_srv/tunnel_srv.go" beforeDir="false" afterPath="$PROJECT_DIR$/../bgNetTunnelB/app/service/tunnel_srv/tunnel_srv.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bgNetTunnelB/bgNetTunnelB_linux_386" beforeDir="false" afterPath="$PROJECT_DIR$/../bgNetTunnelB/bgNetTunnelB_linux_386" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bgNetTunnelB/bgNetTunnelB_linux_amd64" beforeDir="false" afterPath="$PROJECT_DIR$/../bgNetTunnelB/bgNetTunnelB_linux_amd64" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bgNetTunnelB/bgNetTunnelB_windows_386.exe" beforeDir="false" afterPath="$PROJECT_DIR$/../bgNetTunnelB/bgNetTunnelB_windows_386.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bgNetTunnelB/bgNetTunnelB_windows_amd64.exe" beforeDir="false" afterPath="$PROJECT_DIR$/../bgNetTunnelB/bgNetTunnelB_windows_amd64.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bgNetTunnelB/build_all.bat" beforeDir="false" afterPath="$PROJECT_DIR$/../bgNetTunnelB/build_all.bat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bgNetTunnelB/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/../bgNetTunnelB/go.mod" afterDir="false" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Go File" />
+      </list>
+    </option>
+  </component>
+  <component name="GOROOT" path="D:\Go" />
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../.." />
+  </component>
+  <component name="GoLibraries">
+    <option name="indexEntireGoPath" value="false" />
+  </component>
+  <component name="ProjectId" id="1V4HNoZL0RgexK1117CwTXguONX" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="PropertiesComponent">
+    <property name="DefaultGoTemplateProperty" value="Go File" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="go.import.settings.migrated" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\opensource\bgPrivateKnowledgeBase\proj\bgNetTunnel\TestKCP" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager">
+    <configuration name="go build main.go" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
+      <module name="TestKCP" />
+      <working_directory value="$PROJECT_DIR$" />
+      <kind value="FILE" />
+      <filePath value="$PROJECT_DIR$/main.go" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Go Build.go build main.go" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VgoProject">
+    <integration-enabled>true</integration-enabled>
+    <proxy>https://goproxy.cn</proxy>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/main.go</url>
+          <line>151</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/main.go</url>
+          <line>98</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/main.go</url>
+          <line>166</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/main.go</url>
+          <line>125</line>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>

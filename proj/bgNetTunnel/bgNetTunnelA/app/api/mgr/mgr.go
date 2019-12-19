@@ -47,6 +47,39 @@ func (c *Controller) MappingTableInfo(r *ghttp.Request) {
  */
 func (c *Controller) AddMappingTable(r *ghttp.Request) {
 	// 查找所有映射表信息，通过模板返回给页面
+	err := r.Response.WriteTpl("addmapping.html", g.Map{})
+
+	if err != nil {
+		glog.Error(err)
+	}
+}
+
+func (c *Controller) AddMappingTableHandler(r *ghttp.Request) {
+	resp := make(g.MapStrAny, 0)
+	// 接收请求，调用增加接口
+	request_json, err := r.GetJson()
+	if err != nil {
+		// 构建错误码
+		resp["code"] = -1
+
+		glog.Error(err)
+	} else {
+		// 调用业务接口
+		err = mapping_srv.Mapping_service_instance.AddMappingInfoHandle(request_json)
+		if err != nil {
+			// 构建错误码
+			resp["code"] = -2
+			glog.Error(err)
+		} else {
+			resp["code"] = 0
+		}
+	}
+
+	response_json := gjson.New(resp)
+	err = r.Response.WriteJson(response_json)
+	if err != nil {
+		glog.Error(err)
+	}
 }
 
 /**

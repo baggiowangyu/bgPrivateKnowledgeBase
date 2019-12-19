@@ -16,36 +16,80 @@
 </head>
 
 <body>
+	<script language="javascript">
+		function AddMapping() {
+			mapping_port = document.getElementById("mapping_port").value
+			source_ip = document.getElementById("source_ip").value
+			source_port = document.getElementById("source_port").value
+			net_type = document.getElementById("net_type").value
+			
+			// 校验
+//			if ((net_type != "TCP") || (net_type != "UDP")) {
+//				alert("网络类型错误！")
+//			}
+			
+			var json_obj = {}
+			json_obj.mapping_port = Number(mapping_port)
+			json_obj.source_ip = source_ip
+			json_obj.source_port = Number(source_port)
+			json_obj.net_type = net_type
+			
+			json_string = JSON.stringify(json_obj)
+			
+			// 提交添加请求
+			var xhr = new XMLHttpRequest();
+			xhr.open('post', '/MappingTableInfo/AddMappingTableHandler');
+			xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+			xhr.send(json_string);
+			
+			// 发送并接受返回值
+    		xhr.onreadystatechange = function () {
+        		// 这步为判断服务器是否正确响应
+        		if (xhr.readyState == 4 && xhr.status == 200) {
+            		alert(xhr.responseText);
+					window.location.href = "/MappingTableInfo/MappingTableInfo"
+        		} else {
+					alert(xhr.readyState)
+				}
+    		};
+		}
+	</script>
+	
 	<div class="container">
 		<div class="center-block">添加映射表</div>
 		<div style="padding: 100px 100px 10px;">
-			<form class="bs-example bs-example-form" role="form">
+			<form class="bs-example bs-example-form" role="form" action="/MappingTableInfo/AddMappingTable">
 				<div class="input-group">
-					<span class="input-group-addon">{{.Mapping_port_lable}}</span>
-					<input type="text" class="form-control" placeholder={{.Mapping_port_lable_tips}}>
+<!--					<span class="input-group-addon">{{.Mapping_port_lable}}</span>-->
+<!--					<input type="text" id="mapping_port" class="form-control" placeholder={{.Mapping_port_lable_tips}}>-->
+					<span class="input-group-addon">映射端口</span>
+					<input type="text" id="mapping_port" class="form-control" placeholder="待映射的端口">
 				</div>
 				<br>
 				<div class="input-group">
-					<span class="input-group-addon">{{.Source_ip_lable}}</span>
-					<input type="text" class="form-control" placeholder={{.Mapping_port_lable_tips}}>
+					<span class="input-group-addon">源端地址</span>
+					<input type="text" id="source_ip" class="form-control" placeholder="源端IP地址">
 				</div>
 				<br>
 				<div class="input-group">
-					<span class="input-group-addon">{{.Source_port_lable}}</span>
-					<input type="text" class="form-control" placeholder={{.Mapping_port_lable_tips}}>
+					<span class="input-group-addon">源端端口</span>
+					<input type="text" id="source_port" class="form-control" placeholder="源端端口号">
 				</div>
 				<br>
 				<div class="input-group">
-					<span class="input-group-addon">{{.Net_type_lable}}</span>
-					<input type="text" class="form-control" placeholder={{.Mapping_port_lable_tips}}>
+					<span class="input-group-addon">网络类型</span>
+					<input type="text" id="net_type" class="form-control" placeholder="TCP或UDP">
 				</div>
 				<br>
+<!--
 				<div class="input-group">
 					<span class="input-group-addon">{{.Is_running_lable}}</span>
-					<input type="text" class="form-control" placeholder={{.Mapping_port_lable_tips}}>
+					<input type="text" id="" class="form-control" placeholder={{.Mapping_port_lable_tips}}>
 				</div>
+-->
 			</form>
 			
+<!--			onclick="AddMapping()"-->
 			<button type="button" class="btn btn-primary" onclick="AddMapping()">增加映射</button>
 		</div>
 	</div>
