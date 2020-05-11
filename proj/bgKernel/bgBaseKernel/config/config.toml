@@ -1,0 +1,35 @@
+# HTTP Server
+[server]
+	Address     = ":8199"
+	ServerRoot  = "public"
+	ServerAgent = "bgBaseKernel"
+	LogPath     = "/tmp/log/bgBaseKernel/server"
+
+# Logger.
+[logger]
+    Path        = "/tmp/log/bgBaseKernel"
+    Level       = "all"
+    Stdout      = true
+
+# Template.
+[viewer]
+    Path        = "template"
+    DefaultFile = "index.html"
+    Delimiters  =  ["${", "}"]
+
+# Database.
+[database]
+    link  = "mysql:root:video@tcp(127.0.0.1:3306)/levam-go"
+    debug = true
+    # Database logger.
+    [database.logger]
+        Path   = "/tmp/log/bgBaseKernel/sql"
+        Level  = "all"
+        Stdout = true
+
+[consul]
+    address = "127.0.0.1:8500"
+    local_ip = "127.0.0.1"
+    local_port = 8199
+    check_interval = "5s"
+    check_url = "http://127.0.0.1:8199/consul/health"
