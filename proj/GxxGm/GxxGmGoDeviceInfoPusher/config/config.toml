@@ -1,0 +1,47 @@
+# HTTP Server
+[server]
+	Address     = ":10021"
+	ServerRoot  = "public"
+	ServerAgent = "GxxGmGoDeviceInfoPusher"
+	LogPath     = "/tmp/log/GxxGmGoDeviceInfoPusher/server"
+
+# Logger.
+[logger]
+    Path        = "/tmp/log/GxxGmGoDeviceInfoPusher"
+    Level       = "DEBU"
+    Stdout      = true
+
+# Template.
+[viewer]
+    Path        = "template"
+    DefaultFile = "index.html"
+    Delimiters  =  ["${", "}"]
+
+# Database.
+[database]
+    link  = "mysql:root:12345678@tcp(127.0.0.1:3306)/test"
+    debug = true
+    # Database logger.
+    [database.logger]
+        Path   = "/tmp/log/GxxGmGoDeviceInfoPusher/sql"
+        Level  = "prod"
+        Stdout = true
+
+[redis]
+    default = "127.0.0.1:6379,0"
+
+[http_push]
+    enable = 1
+    url = "http://localhost:10021/test/TestRecvGps"
+    method = "post"
+
+[tcp_push]
+    enable = 0
+    host = ""
+    port = 10000
+
+[kafka_push]
+    enable = 0
+    host = ""
+    port = 9092
+    topic = "gxxgm_zfy_info"
