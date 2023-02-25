@@ -8,7 +8,8 @@ require (
 	github.com/templexxx/xor v0.0.0-20181023030647-4e92f724b73b // indirect
 	github.com/tjfoc/gmsm v1.0.1 // indirect
 	github.com/xtaci/kcp-go v5.4.19+incompatible
-	golang.org/x/crypto v0.0.0-20191206172530-e9b2fee46413
+	github.com/xtaci/lossyconn v0.0.0-20200209145036-adba10fffc37 // indirect
+	golang.org/x/crypto v0.1.0
 )
 
 go 1.13
