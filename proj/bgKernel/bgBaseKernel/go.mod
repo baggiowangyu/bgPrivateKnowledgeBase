@@ -13,9 +13,8 @@ require (
 	github.com/hashicorp/memberlist v0.1.5 // indirect
 	github.com/hashicorp/serf v0.8.5 // indirect
 	github.com/swaggo/swag v1.6.5
-	github.com/zhwei820/gogf-swagger v0.0.0-20190809145901-36a5ac64e088
-	golang.org/x/crypto v0.0.0-20191106202628-ed6320f186d4 // indirect
-	golang.org/x/net v0.0.0-20190923162816-aa69164e4478 // indirect
+	golang.org/x/crypto v0.1.0 // indirect
+	google.golang.org/appengine v1.6.1 // indirect
 )
 
 go 1.12
